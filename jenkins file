@@ -1,6 +1,6 @@
 node {
    stage 'Fetch code from GitHub'
-   		git branch: 'main', url: 'https://github.com/helpingpeopletolearn/storyproject.git'
+   		git branch: 'main', url: 'https://github.com/Cyrilflair/Samplejenkins.git'
    stage 'Install and Start Apache'
    		sh 'sudo apt-get install apache2 -y'
 		sh 'sudo service apache2 start'
