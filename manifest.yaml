@@ -1,0 +1,41 @@
+---
+#Default region for deploying Custom Control Tower: Code Pipeline, Step functions, Lambda, SSM parameters, and StackSets
+region: us-east-1
+version: 2021-03-15
+
+# Control Tower Custom CloudFormation Resources
+# resources:
+#   - name: "kms"
+#     resource_file: templates/test_kms.yml
+#     resource_file: s3://<BUCKET-NAME>/<KEY-NAME>/create-ssm-parameter-keys-2.template # S3 bucket must be in the <HOME_REGION_NAME>
+#     deploy_method: stack_set
+#     deployment_targets:
+#       accounts: # :type: list
+#         - Cyril Flair
+#     organizational_units:
+#     - <OU_NAME>
+#     regions:
+#       - us-east-1
+## To create Aurora DB
+
+resources:
+- name: "Aurora"
+    resource_file: templates/AuroraDB.yml
+    resource_file: arn:aws:s3:::codebuildbucket12334/create-ssm-parameter-keys-2.template # S3 bucket must be in the <HOME_REGION_NAME>
+    parameters:
+    - parameter_key: "PrivateSubnet1CIDR"
+      parameter_value: "10.0.3.0/24"
+    - parameter_key: "PrivateSubnet2CIDR"
+      parameter_value: "10.0.4.0/24"
+    - parameter_key: "DBUsername"
+      parameter_value: "admin"
+    - parameter_key: "DBPassword"
+      parameter_value: "admin123"
+    deploy_method: stack_set
+    deployment_targets:
+      accounts: # :type: list
+        - Cyril Flair
+    #organizational_units:
+    #- <OU_NAME>
+    regions:
+      - us-east-1
